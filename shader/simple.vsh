@@ -1,6 +1,6 @@
 #version 130
 in vec3 in_Position;
-in vec3 in_Normal;
+//in vec3 in_Normal;
 in vec2 in_texCoord;
 
 out vec2 ex_texCoord;

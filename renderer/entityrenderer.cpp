@@ -10,7 +10,7 @@ entityRenderer::entityRenderer(Camera& camera, GLuint program, int &width, int &
 
     tex_2d = SOIL_load_OGL_texture
         (
-            "/home/mrctje/Dropbox/Eclipse/SteenPapierSchaar/alduin.jpg",
+            "/home/mrctje/Dropbox/Eclipse/SteenPapierSchaar/texture_cube.png",
             SOIL_LOAD_AUTO,
             SOIL_CREATE_NEW_ID,
             SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -27,7 +27,7 @@ void entityRenderer::render(Camera &cam, entity &en)
 {
     glBindVertexArray(en.getMesh()->getvaoID());
     glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    //glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, tex_2d);
@@ -35,7 +35,7 @@ void entityRenderer::render(Camera &cam, entity &en)
     entityTransformation(en); //Transforms entity
     glDrawElements(GL_TRIANGLES, en.getMesh()->getIndexCount(), GL_UNSIGNED_INT, NULL);
     glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
+    //glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
     glBindVertexArray(0);
 }

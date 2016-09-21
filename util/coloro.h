@@ -1,8 +1,6 @@
 #ifndef COLORO_H
 #define COLORO_H
 
-#endif // COLORO_H
-
 #include <cstring>
 #include <string>
 namespace colord{
@@ -36,3 +34,7 @@ namespace colord{
 
 
 }
+
+#endif // COLORO_H
+
+

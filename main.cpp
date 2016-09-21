@@ -259,7 +259,7 @@ int main(int argc, char *argv[])
          << "#                    Init                    #" << endl
          << "##############################################" << colord::resetAttributes() << endl;
     auto Time = Clock::now();
-    Model *model = objLoader.loadOBJModel("/home/mrctje/Dropbox/Eclipse/SteenPapierSchaar/alduin2.obj");
+    Model *model = objLoader.loadOBJModel("/home/mrctje/Dropbox/Eclipse/SteenPapierSchaar/alduin.obj");
 //    Model *model2 = objLoader.loadOBJModel("/home/mrctje/Dropbox/Eclipse/SteenPapierSchaar/stall.obj");
     cout << "Loading time: " << chrono::duration_cast<chrono::milliseconds>(Clock::now() - Time).count() << "ms" << endl;
 

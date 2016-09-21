@@ -27,8 +27,7 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../lib/release/ -
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../lib/debug/ -lGL
 else:unix: LIBS += -L$$PWD/../../../../lib/ -lGL
 
-
-unix|win32: LIBS += -lGLEW
+unix:!macx: LIBS += -lGLEW
 
 unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib/ -lsoil2
 
@@ -49,11 +48,16 @@ HEADERS += \
     entity/camera.h \
     util/coloro.h \
     util/string_util.h \
-    models/model.h
+    models/model.h \
+    util/consoleheader.h
 
 
 DISTFILES += \
     shader/simple.vsh \
     shader/simple.frag
+
+
+
+
 
 

@@ -38,7 +38,7 @@ Model* OBJModelLoader::loadOBJModel(const char* filePath){
         model->vertices = new GLfloat[vertexVector.size()];
         model->indices = new GLuint[indexVector.size()];
         if(texturePresent)
-            model->textures = new GLfloat[texturesVector.size()];
+            model->textures = new GLfloat[indexVector.size()*2];
             //model->textures = new GLfloat[indexVector.size()];
         model->normals = new GLfloat[normalVector.size()];
 
@@ -52,20 +52,39 @@ Model* OBJModelLoader::loadOBJModel(const char* filePath){
         for (uint c = 0; c < vertexVector.size(); c++) {
             model->vertices[c] = std::stof(vertexVector[c]);
         }
-        //Fill Indices, textures and normals in allocated arrays
+        //Fill Indices in allocated array
         for (uint i = 0; i < indexVector.size(); ++i) {
             model->indices[i] = std::stoi(indexVector[i].substr(0,indexVector[i].find_first_of('/'))) - 1;
-            if(texturePresent)
-                model->textures[model->indices[i] * 2]  = std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/'))) - 1]);
-                model->textures[model->indices[i] * 2 + 1] =1 - std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/')))]);
-//                model->textures[model->indices[i] * 2 + 1] = 1 - std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/')))]);
-            model->normals[1] = std::stof(normalVector[std::stoi(indexVector[i].substr(indexVector[i].find_last_of('/') + 1)) - 1]);
         }
+
+//        for(uint i = 0; i < indexCount; i++){
+//            if(texturePresent);
+//               // std::cout << std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/'))) - 1]) << ", " <<
+//              // std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/')))]) << std::endl;
+
+//                int index = std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/'))) -1;
+//                std::cout << index << std::endl;
+//                model->textures[i * 2] = std::stof(texturesVector[index * 2]);
+//                model->textures[i * 2 + 1] = std::stof(texturesVector[index  * 2 + 1]);
+////                model->textures[model->indices[i] * 2 + 1] = 1 - std::stof(texturesVector[std::stoi(indexVector[i].substr(indexVector[i].find_first_of('/')+1, indexVector[i].find_last_of('/')))]);
+
+//        }
+        int counter = 0;
+        for(std::string indexV: indexVector) {
+            int index = std::stoi(indexV.substr(indexV.find_first_of('/')+1, indexV.find_last_of('/'))) -1;
+            std::cout << index << std::endl;
+            model->textures[counter * 2] = std::stof(texturesVector[index * 2]);
+            model->textures[counter * 2 + 1] = std::stof(texturesVector[index  * 2 + 1]);
+            counter++;
+        }
+
+        model->normals[1] = std::stof(normalVector[std::stoi(indexVector[0].substr(indexVector[0].find_last_of('/') + 1)) - 1]);
+
 
         model->vertexCount = getVertexCount();
         model->indexCount = getIndexCount();
         if(texturePresent)
-            model->texturesCount = texturesVector.size()/2;
+            model->texturesCount =indexVector.size()*2;
         model->normalsCount = normalVector.size()/3;
         std::vector<std::string>().swap(vertexVector);
         std::vector<std::string>().swap(indexVector);
